@@ -1,4 +1,4 @@
-#Como realizar un sencillo mapa de cloropletas en QGIS
+	#Como realizar un sencillo mapa de cloropletas en QGIS
 
 En este tutorial aprenderemos a realizar un sencillo mapa de cloropletas con QGIS. Todos los pasos necesarios están descritos aquí abajo. Crearemos un mapa de densidad de población por municipios (renta).   
 Necesitaremos descargar dos conjuntos de datos, los `shapefiles` y el `csv`. Después cruzaremos los datos mediante el id único de cada municipio. Empecemos:   
@@ -23,18 +23,24 @@ Necesitaremos descargar dos conjuntos de datos, los `shapefiles` y el `csv`. Des
 	Tenemos todo el mapa de España por municipios dividido en dos capas, dos archivos diferentes.   
 	La siguiente operación será unir o `mergear` los dos `shapefiles` para conseguir un único archivo que contenga los polígonos de todos los municipios de España.
 
-4. Antes de hacer el `merge` con la península debemos asegurarnos de que los dos archivos se encuentran representados bajo la misma proyección. Como observamos en el nombre de la carpeta y del archivo, el `shapefile` de las Islas Canarias está utilizando el sistema de coordenadas `WGS84`.   
-Pulsamos el botón derecho sobre la capa de Canarias y seleccionamos `Establecer SRC de la capa` y seleccionamos `ETRS89 / UTM zone 30N`.   
-No nos preocupemos si el archipiélago desaparece de nuestro `canvas` o espacio de trabajo. Es normal ya que ésta capa utiliza `WGS84`.
+4. Antes de hacer el `merge` con la península debemos asegurarnos de que los dos archivos se encuentran representados bajo el mismo sistema de coordenadas. Como observamos en el nombre de la carpeta y del archivo, el `shapefile` de las Islas Canarias está utilizando el sistema de coordenadas `WGS84`.   
+![Join layers](img/set_crs.png)   
+Para ello debemos convertir este shapefile generando una copia bajo el sistema `ETRS89`. Pulsamos el botón derecho sobre la capa de Canarias y seleccionamos `guardar como`. En la pestaña de `SRC` ![src](img/src_icon.png). Seleccionamos `ETRS89`.    
 
-5. Seleccionamos la pestaña `vectorial` del menú superior. Seguidamente `Herramientas de geoproceso`. Y a continuación `Unión`.
+	![src](img/set_src_save.png)   
 
-	![Join layers](img/menu_join_layers.png)  
+ Seleccionamos la opción `Añadir archivo guardado al mapa`. Guardamos.   
+ Se nos habrá añadido al mapa un nuevo `shapefile` de Canarias en `UTM`. Podemos eliminar la capa original de Canarias.    
+ A continuación uniremos las dos capas en un sólo archivo. Para realizar este paso es fundamental que las dos capas compartan el mismo sistema de coordenadas.   
 
-	![Join layers](img/join_layers.png)   
+5. Seleccionamos la pestaña `procesos` del menú superior. Seguidamente `Caja de Herramientas`. Y a continuación la herramienta `merge_vector_layers` (podemos hacer una búsqueda con `merge` como en la imagen abajo).
+	![Join layers](img/merge_vector_layers.png)   
 
-	Seleccionamos como capa *vectorial de entrada* la península y como capa de unión la de las Canarias.
+	Seleccionamos las dos capas, nombramos nuestro nuevo archivo. Podemos comprobar como las dos se encuentran en `EPSG:4528`.   
 
+	![Join layers](img/merge_vector_layers_2.png)   
+
+	Abrimos nuestro nuevo archivo. Siempre seleccionando la codificación correcta `UTF-8`.
 6. **Tabla de atributos**: Podemos acceder con el botón derecho sobre la capa o en el icono ![attribute_table](img/attribute_table.png). Se nos abrirá la siguiente ventana:
 ![attribute_table_window](img/attribute_table_full.png)      
 
