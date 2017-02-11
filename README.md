@@ -43,7 +43,7 @@ Si a vosotros os poner tan nerviosos como mi ver ese mapa mal proyectado, podemo
 	Abrimos nuestro nuevo archivo. Siempre seleccionando la codificación correcta `UTF-8`.
 6. **Tabla de atributos**: Podemos acceder con el botón derecho sobre la capa o en el icono ![attribute_table](img/attribute_table.png). Se nos abrirá la siguiente ventana:   
 
- ![attribute_table_full](img/attribute_table_full.png)      
+ ![attribute_table_full](img/attribute_table_full_d.png)      
 
 	Gracias a haber seleccionado una correcta codificación vemos como los nombres de los municipios presentan todos sus caracteres de manera adecuada. Una tabla completa de atributos sobre la que podremos realizar casi cualquier tipo de cálculo para filtrar en base a unas reglas, modificarlos o incluso crear nuevos campos.  
 
