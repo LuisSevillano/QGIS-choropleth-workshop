@@ -17,16 +17,16 @@ Necesitaremos descargar dos conjuntos de datos, los `shapefiles` y el `csv`. Des
 3. Abrimos los dos archivos en QGIS. Es importante seleccionar la **codificación** `UTF-8` para no perder información. Si observamos, el mapa ha adoptado una apariencia _achatada_, QGIS presenta los shapefiles bajo el sistema `WGS84` por defecto. Podemos especificar la proyección más adecuada para la Península Ibérica. Si deseamos consultar qué proyección es la más adecuada para cada zona del globo, yo suelo consultar [Spatial reference](http://spatialreference.org/) o [bboxFinder](http://bboxfinder.com/#35.791083,25.499268,38.117272,28.927002).  
 Si a vosotros os poner tan nerviosos como mi ver ese mapa mal proyectado, podemos seleccionar la proyección `ETRS89 / UTM zone 30N` ó  `EPSG:25830`) :laughing:.   
 
-	![Join layers](img/set_crs.png)   
+	![set_crs](img/set_crs.png)   
 
 4. Tenemos todo el mapa de España por municipios dividido en dos capas, dos archivos diferentes.   
 	La siguiente operación será unir o `mergear` los dos `shapefiles` para conseguir un único archivo que contenga los polígonos de todos los municipios de España.
 
 4. Antes de hacer el `merge` con la península debemos asegurarnos de que los dos archivos se encuentran representados bajo el mismo sistema de coordenadas. Como observamos en el nombre de la carpeta y del archivo, el `shapefile` de las Islas Canarias está utilizando el sistema de coordenadas `WGS84`.   
 
- Para ello debemos convertir este shapefile generando una copia bajo el sistema `ETRS89`. Pulsamos el botón derecho sobre la capa de Canarias y seleccionamos `guardar como`. En la pestaña de `SRC` ![src](img/src_icon.png). Seleccionamos `ETRS89`.    
+ Para ello debemos convertir este shapefile generando una copia bajo el sistema `ETRS89`. Pulsamos el botón derecho sobre la capa de Canarias y seleccionamos `guardar como`. En la pestaña de `SRC` ![src_icon](img/src_icon.png). Seleccionamos `ETRS89`.    
 
-	![src](img/set_src_save.png)   
+	![set_src_save](img/set_src_save.png)   
 
  Seleccionamos la opción `Añadir archivo guardado al mapa`. Guardamos.   
  Se nos habrá añadido al mapa un nuevo `shapefile` de Canarias en `ETRS89` (_European Terrestrial Reference System 1989_). Podemos eliminar la capa original de Canarias.    
@@ -34,21 +34,21 @@ Si a vosotros os poner tan nerviosos como mi ver ese mapa mal proyectado, podemo
 
 5. Seleccionamos la pestaña `procesos` del menú superior. Seguidamente `Caja de Herramientas`. Y a continuación la herramienta `Merge Vector Layers` (podemos hacer una búsqueda con `merge` como en la imagen abajo).
 
-	![Join layers](img/merge_vector_layers.png)   
+	![merge_vector_layers](img/merge_vector_layers.png)   
 
 	Seleccionamos las dos capas, nombramos nuestro nuevo archivo. Podemos comprobar como las dos se encuentran en `EPSG:4528`.   
 
-	![Join layers](img/merge_vector_layers_2.png)   
+	![merge_vector_layers_2](img/merge_vector_layers_2.png)   
 
 	Abrimos nuestro nuevo archivo. Siempre seleccionando la codificación correcta `UTF-8`.
 6. **Tabla de atributos**: Podemos acceder con el botón derecho sobre la capa o en el icono ![attribute_table](img/attribute_table.png). Se nos abrirá la siguiente ventana:   
 
- ![attribute_table_window](img/attribute_table_full.png)      
+ ![attribute_table_full](img/attribute_table_full.png)      
 
 	Gracias a haber seleccionado una correcta codificación vemos como los nombres de los municipios presentan todos sus caracteres de manera adecuada. Una tabla completa de atributos sobre la que podremos realizar casi cualquier tipo de cálculo para filtrar en base a unas reglas, modificarlos o incluso crear nuevos campos.  
 
 	En este caso nos interesa el campo `NATCODE`. Esta celda contiene un código único que identifica de manera inequívova a cualquier polígono (municipio). Con una sencilla operación, podemos extraer el código del **INE** de este campo para poder cruzarlo con el `CSV` a continuación. No olvidemos que nuestro objetivo es poder asociar unos valores específicos a cada municipio y para ello necesitamos un `id`.   
-	Para éste propósito contamos con la `calculadora de campos` ![attribute_table](img/field_calculator_icon.png). Hacemos click sobre el icono.   
+	Para éste propósito contamos con la `calculadora de campos` ![field_calculator_icon](img/field_calculator_icon.png). Hacemos click sobre el icono.   
 7. **Calculadora de campos**. En primer lugar introducimos el nombre del campo de salida (será la cabecera de la nueva columna), por ejemplo `cod_ine`. En segundo lugar y **MUY IMPORTANTE** seleccionar el tipo de campo de salida como `Texto` (cadena) ya que queremos preservar los ceros al comienzo de nuestro código cuando éste sea inferior a 5, por ejemplo `04004` y no ~~`4004`~~.  
 Todos los desplegables de la derecha nos permiten ir construyendo nuestra _query_ en base a la que vamos a crear el campo y consultar la documentación asociada a cada método.   
 
@@ -60,10 +60,10 @@ Todos los desplegables de la derecha nos permiten ir construyendo nuestra _query
 
  En este caso nuestra fórmula será como muestra la imagen:
 
- ![attribute_table](img/f_calculator.png)
+ ![f_calculator](img/f_calculator.png)
 
  En la parte inferior izquierda de la calculadora podemo observar una vista preliminar de la salida.   
-Si en algún momento de este proceso nos equivocamos deberemos eliminar el campo y crear uno nuevo o actualizarlo en la opción superior derecha `actualizar campo existente` (tan sólo podremos actualizar el contenido, no la naturaleza del campo). Al finalizar deberemos salvar desde la tabla de atributos ![attribute_table](img/save_icon.png).   
+Si en algún momento de este proceso nos equivocamos deberemos eliminar el campo y crear uno nuevo o actualizarlo en la opción superior derecha `actualizar campo existente` (tan sólo podremos actualizar el contenido, no la naturaleza del campo). Al finalizar deberemos salvar desde la tabla de atributos ![save_icon](img/save_icon.png).   
 
 8. **Añadir un CSV**. A continuación vamos a cargar los datos que queremos asociar a cada municipio. Vamos a utilizar los datos del [Padrón municipal a 1 de enero de 2017](http://www.ine.es/dynt3/inebase/es/index.html?padre=517&dh=1). Este archivo requiere de una pequeña manipulación para extrar el código de municipio (`código de provincia + código de municipio`). Este cálculo podemos hacerlo en Excel, libre office o incluso en QGIS. Es muy importante no perder los ceros por la izquierda. El código **siempre** ha de tener cinco cifras.
 Podéis procesar los datos y guardarlos como csv o bien utilizar el csv de la carpeta `data` del repositorio.   
@@ -72,9 +72,9 @@ Podéis procesar los datos y guardarlos como csv o bien utilizar el csv de la ca
 
  (Saltar hasta el siguiente punto: **Uniones**).   
 
-  Para añadir un `csv` seleccionamos `Capa` o el icono de acceso directo ![attribute_table](img/add_delimited_text_layer_icon.png). Seleccionamos el archivo desde el explorador, codificación correcta, el delimitador correcto (`;`, `,`, `tabulador`...).    
+  Para añadir un `csv` seleccionamos `Capa` o el icono de acceso directo ![add_delimited_text_layer_icon](img/add_delimited_text_layer_icon.png). Seleccionamos el archivo desde el explorador, codificación correcta, el delimitador correcto (`;`, `,`, `tabulador`...).    
 
-	![attribute_table](img/add_delimited_text_layer.png)   
+	![add_delimited_text_layer](img/add_delimited_text_layer.png)   
 
 	Si nuestro objetivo es representar una serie de puntos sobre el mapa y nuestro csv tuviera columnas con los campos `longitud` y `latitud` deberíamos especificarlas en los correspondientes desplegables.   
 	Vemos nuestra nueva capa con un icono diferente ya que no es una capa de tipo vectorial. A continuación nuestro objetivo será cruzar los datos mediante los `ids`.
@@ -98,8 +98,8 @@ La opción **Modo** nos permite utilizar diferentes tipos de escalas. En nuestro
 	![quantil-vs-jenks](img/quatil-vs-jenks.png)
 
 	Podéis ampliar información en [este post](http://roadtolarissa.com/coloring-maps/) de [Adam Pearce](https://twitter.com/adamrpearce) sobre las principales escalas.   
-11. **Print Composer** Una vez tenemos nuestro mapa queremos crear una imagen a buena resolución de nuestro mapa, listo para publicar. Pulsamos en el icono ![print_composer](img/print_composer_icon.png).
-Podemos rellenar el campo nombre. A continuación en añadir mapa ![new_map](img/new_map_icon.png).    
+11. **Print Composer** Una vez tenemos nuestro mapa queremos crear una imagen a buena resolución de nuestro mapa, listo para publicar. Pulsamos en el icono ![print_composer_icon](img/print_composer_icon.png).
+Podemos rellenar el campo nombre. A continuación en añadir mapa ![new_map_icon](img/new_map_icon.png).    
 Con el ratón pulsado arrastramos desde una esquina hacia la contraria dibujando la extensión del `canvas`. Apareceá exactamente lo mismo que estabamos viendo en la ventana principal de `QGIS`. Existe la posibilidad de eliminar el fondo y exportar la imagen con transparencia (muy útil si luego vamos a trabajar con ella en algún otro programa). En la pestaña `Diseño`del menú derecho	y en el apartado `Configuración de página` seleccionamos `Cambiar`: **borde** y **relleno** transparente.   
 En la pesataña 	`Propiedades del elemento` deseleccionamos la pestaña `fondo`.   
 
@@ -110,7 +110,7 @@ En la pesataña 	`Propiedades del elemento` deseleccionamos la pestaña `fondo`.
 	- En el apartado `Propiedades principales` podemos servirnos del apartado `Escala` para asegurarnos de que los dos mapas conservan la misma proporción.
 	- Si queremos podemos añadir un rectángulo alrededor del archipiélago para remarcar la composición en `Añadir figura geométrica`.
 
-	![map](img\map.png)   
+	![map](img/map.png)   
 
 	Tips & tricks
 	=============
@@ -149,11 +149,11 @@ Para estilizar las `etiquetas` o labels seleccionamos de propiedades de la capa 
 
 Lo siguiente será ir jugando con niveles de opacidad, filtros y estilos basados en reglas para conseguir un diseño con el que estemos conforme. El objetivo es generar un mapa listo para publicar.   
 
-![map](img/lanzarote.png)   
+![lanzarote](img/lanzarote.png)   
 
 El `print composer` nos permite añadir fácilmante texto sobre nuestra composición, una barra de escala, un indicador del norte, una leyenda, etc. Las posibilidades son múltiples. Debemos ir jugando con todos los niveles y opciones hasta encontrar un diseño con el que estemos conforme.   
 Este diseño está hecho utilizando exclusivamente QGIS. Este programa nos ofrece una serie de opciones limitadas. Si queremos desarrollar una composición más elaborada con anotaciones, varios mapas, diseños específicos para cada plataforma (escritorio/móvil/tableta) sin duda deberemos ayudarnos de algún otro tipo de programa como Illustrator/Gimp.  
 
-![map](img/lanzarote_design.png)    
+![lanzarote_design](img/lanzarote_design.png)    
 
 Desde el _diseñador_ podemos exportar en png, pdf, vectorial, aunque mi experienca con la exportación a svg no es muy buena. A menudo QGIS crea agrupaciones extrañas de elementos y generalmente los shapefiles tienen demasiado detalle para poder trabajar cómodamente en Illustrator. En ocasiones es más ágil exportar un png de gran calidad y moverlo fácilmente.
