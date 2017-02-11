@@ -1,4 +1,5 @@
-	#Como realizar un sencillo mapa de cloropletas en QGIS
+Como realizar un sencillo mapa de cloropletas en QGIS
+=============
 
 En este tutorial aprenderemos a realizar un sencillo mapa de cloropletas con QGIS. Todos los pasos necesarios están descritos aquí abajo. Crearemos un mapa de densidad de población por municipios (renta).   
 Necesitaremos descargar dos conjuntos de datos, los `shapefiles` y el `csv`. Después cruzaremos los datos mediante el id único de cada municipio. Empecemos:   
@@ -49,9 +50,9 @@ Para ello debemos convertir este shapefile generando una copia bajo el sistema `
 	Para éste propósito contamos con la `calculadora de campos` ![attribute_table](img/field_calculator_icon.png). Hacemos click sobre el icono.   
 7. **Calculadora de campos**. En primer lugar introducimos el nombre del campo de salida (será la cabecera de la nueva columna), por ejemplo `cod_ine`. En segundo lugar y **muy importante** seleccionar el tipo de campo de salida como `Texto` (cadena) ya que queremos preservar los ceros al comienzo de nuestro código cuando éste sea inferior a 5, por ejemplo `04004` y no ~~`4004`~~. A continuación vamos a utilizar un método del desplegable `Cadena` (String) llamado `substring`. Este método nos permitirá modificar el valor de una celda en base a tres argumentos:     
 
-	* `cadena_de_entrada` => nombre de la columna de la cual queremos obtener nuestro nuevo campo.   
-	* `startpos` => posición inicial desde la que comenzaremos a extraer caracteres (empezando por el primero).
-	* `longitud` => longitud de la cadena a extraer.   
+	* `cadena_de_entrada` → nombre de la columna de la cual queremos obtener nuestro nuevo campo.   
+	* `startpos` → posición inicial desde la que comenzaremos a extraer caracteres (empezando por el primero).
+	* `longitud` → longitud de la cadena a extraer.   
 
 	En este caso nuestra fórmula será como muestra la imagen:
 
@@ -67,14 +68,14 @@ Para ello debemos convertir este shapefile generando una copia bajo el sistema `
 	Si nuestro objetivo fuera representar una serie de puntos sobre el mapa y nuestro csv tuviera columnas con los campos `longitud` y `latitud` deberíamos especificarlas en los correspondientes desplegables.   
 	Vemos nuestra nueva capa con un icono diferente ya que no es una capa de tipo vectorial. A continuación nuestro objetivo será cruzar los datos mediante los `ids`.
 
-9. **Uniones**. Hacemos click con el botón derecha sobre nuestro shapefile => propiedades => `Uniones` y en el icono ![add_join_icon](img/add_join_icon.png). Seleccionamos la capa con la cual queremos hacer el `join` y los dos campos que cruzaremos. Podemos elegir qué campos queremos unir, en este caso sólo nos interesa el de población.
+9. **Uniones**. Hacemos click con el botón derecha sobre nuestro shapefile → propiedades → `Uniones` y en el icono ![add_join_icon](img/add_join_icon.png). Seleccionamos la capa con la cual queremos hacer el `join` y los dos campos que cruzaremos. Podemos elegir qué campos queremos unir, en este caso sólo nos interesa el de población.
 ![add_join](img/add_join.png)
 
-10. **Cálculo de densidad**. Volvemos a abrir la calculadora de campos. Y seguimos los pasos aprendidos para generar un nuevo campo. Esta vez la densidad de población.
+10. **Cálculo de densidad**. Volvemos a abrir la calculadora de campos. Seguimos los pasos aprendidos para generar un nuevo campo. Esta vez la densidad de población.
 Importante seleccionar como tipo de salida de campo `Número decimal (real)`, `longitud de campo de salida`: `20` y una precision mínimo de `10`. E introducimos la siguiente expresión:
 
-		`to_real( "data_POB00"  /  $area  ) `   
-Esta opeación nos generará un nuevo campo con la densidad de población por municipio. A continuación
+		to_real( "data_POB00"  /  $area  ) * 10000   
+Dividimos la población entre el área del polígono. Lo multiplicamos por 10,000 para obtener habitantes por hectarea y _parseamos_ el dato a número real (decimal) para conservar los decimales con `to_real(...)`. Esta opeación generará un nuevo campo con la densidad de población por municipio. A continuación
 sólo deberemos aplicar una escala de color a nuestros datos.   
 
 11. **Print Composer** Una vez tenemos nuestro mapa queremos crear una imagen a buena resolución de nuestro mapa, listo para publicar. Pulsamos en el icono ![print_composer](img/print_composer_icon.png).
@@ -88,3 +89,51 @@ En la pesataña 	`Propiedades del elemento` deseleccionamos la pestaña `fondo`.
 	- De nuevo en la ventana principal hacemos zoom sobre las Canarias. En el diseño de impresión añadimos un nuevo mapa. Aparecerán las Islas Canarias. Podemos ayudarnos de la herrmienta `Mover contenido del elemento` ![move_content_icon](img/move_content_icon.png) para manejar mejor las dos capas y de las opciones bloquear del menú superior derecho `Elementos`.   
 	- En el apartado `Propiedades principales` podemos servirnos del apartado `Escala` para asegurarnos de que los dos mapas conservan la misma proporción.
 	- Si queremos podemos añadir un rectángulo alrededor del archipiélago para remarcar la composición en `Añadir figura geométrica`.
+
+	![map](img\map.png)   
+
+	Pasos Opcionales
+	=============
+
+	Podemos seguir trabajando sobre este mapa o podemos intentar hacer un mapa diferente, más enfocado a un trabajo de reportaje como comentábamos anteriormente.   
+	- En las siguientes páginas se pueden `descargar` shapefiles y archivos _raster_ de carácter político, natural, cultural: [Natura Earth Data](http://www.naturalearthdata.com/), [Magrama](http://www.mapama.gob.es/es/cartografia-y-sig/ide/descargas/default.aspx), [Diva-gis.org](http://www.diva-gis.org/gdata), etc.   
+	A excepción del Ministerio de Agricultura, no son archivos oficiales, y si queremos hacer mapas con mucho detalle deberemos irnos siempre a las fuentes oficiales. En este sentido, España tiene todavía que mejorar el acceso a este tipo de datos fundamentales para un buen análisis.
+
+	- `Instalar un plugin`. seleccionamos la pestaña `complementos` de la vista principal → `Administrar e instalar complementos`.
+
+	- `QGIS` tiene multitud de `plugins` que potencian las posibilidades de este software que, no olvidemos es libre. Entre ellos destaca `OpenLayers Plugin` que nos permite añadir a nuestra composición multitud de capas: `Google Satellite`, `Bing Aerial`, `Google Streets`, etc. Presenta el inconveniente de ser capas **no editables**. No podremos tocar los niveles de las fotos aéreas, filtrar resultados, etc. Accedemos desde la pestaña `web`.
+
+	- Dibujar una serie de puntos en el mapa leyéndo desde un `csv`. Deberemos tener una columna con las coordenadas `longitud` y `latitud`. Si no tenemos un dataset con éstas caracteristicas podemos buscar las principales ciudades de España en google maps y copiar las coordenadas de la `url`.
+	La estructura del archivo debería ser algo así:   
+
+			city,lat,lon   
+			Madrid,40.4378698,-3.8196211   
+			Barcelona,41.3947688,2.0787279   
+			...
+
+		Añadiremos el archivo con la opción `añadic campo de texto delimitado`, seleccionamos qué columnas corresponden a los campos `longitud` y `latitud`. Una vez creada la capa nos saltará una opción en la que debemos especificar mediante qué sistema de representación van a localizarse nuestros datos. Es MUY IMPORTANTE que seleccionemos la opción `WGS84`. De lo contrario nuestros puntos no se visualizarán correctamente.
+
+Caso práctico
+=============
+
+Realizaremos un mapa de la isla de Lanzarote donde marcaremos los límites del **Parque nacional de Timanfaya**. Necesitaremos:
+- **Recintos municipales de Canarias**. Filtraremos para quedarnos sólo con el perteneciente a la isla de Lanzarote. Botón derecho sobre la capa, **FILTRAR** e introducimos la expresión correspondiente: `"CODNUT3" LIKE 'ES708'`.    
+- Hacemos lo mismo con la capa de **recintos provinciales**: `"CODNUT3" LIKE 'ES70'`.   
+- Añadimos una imagen por satélite del plugin `OSM`.   
+- Vamos al **Magrama** y nos descargamos el shapefile del parque natural.
+- Podemos descargarnos otros shapefiles del [OpenStreetMap Data Extracts](http://download.geofabrik.de/). Aquí tendremos archivos muy completos de usos del suelo, carreteras, etc.
+
+En el panel de propiedades de una capa tenemos multitud de opciones para controlar el color de relleno, del borde, opacidad. Además, podemos mostrar cualquier campo de la tabla de atributos, como por ejemplo el nombre del parque natural, el nombre del municipio o incluso el nombre de la principal ciudad de la isla cargándolo desde un csv con sus correspondientes coordenadas como vimos más arriba.   
+
+Para estilizar las `etiquetas` o labels seleccionamos de propiedades de la capa → etiquetas → mostrar etiquetas para esta capa. En *etiquetar con* seleccionamos el campo de la tabla de atributos que queremos mostrar. Abajo se encuentran todas las opciones para estilizar el texto: color, tipo de fuente, tamaño, sombra, etc.   
+
+Lo siguiente será ir jugando con niveles de opacidad, filtros y estilos basados en reglas para conseguir un diseño con el que estemos conforme. El objetivo es generar un mapa listo para publicar.   
+
+![map](img/lanzarote.png)   
+
+El `print composer` nos permite añadir fácilmante texto sobre nuestra composición, una barra de escala, un indicador del norte, una leyenda, etc. Las posibilidades son múltiples. Debemos ir jugando con todos los niveles y opciones hasta encontrar un diseño con el que estemos conforme.   
+Este diseño está hecho utilizando exclusivamente QGIS. Este programa nos ofrece una serie de opciones limitadas. Si queremos desarrollar una composición más elaborada con anotaciones, varios mapas, diseños específicos para cada plataforma (escritorio/móvil/tableta) sin duda deberemos ayudarnos de algún otro tipo de programa como Illustrator/Gimp.  
+
+![map](img/lanzarote_design.png)    
+
+Desde el _diseñador_ podemos exportar en png, pdf, vectorial, aunque mi experienca con la exportación a svg no es muy buena. A menudo QGIS crea agrupaciones extrañas de elementos y generalmente los shapefiles tienen demasiado detalle para poder trabajar cómodamente en Illustrator. En ocasiones es más ágil exportar un png de gran calidad y moverlo fácilmente.
