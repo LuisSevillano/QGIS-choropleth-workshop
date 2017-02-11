@@ -20,7 +20,7 @@ Si a vosotros os poner tan nerviosos como mi ver ese mapa mal proyectado, podemo
 	![set_crs](img/set_crs.png)   
 
 4. Tenemos todo el mapa de España por municipios dividido en dos capas, dos archivos diferentes.   
-	La siguiente operación será unir o `mergear` los dos `shapefiles` para conseguir un único archivo que contenga los polígonos de todos los municipios de España.
+	La siguiente operación será unirmergear o _mergear_ los dos `shapefiles` para conseguir un único archivo que contenga los polígonos de todos los municipios de España.
 
 4. Antes de hacer el `merge` con la península debemos asegurarnos de que los dos archivos se encuentran representados bajo el mismo sistema de coordenadas. Como observamos en el nombre de la carpeta y del archivo, el `shapefile` de las Islas Canarias está utilizando el sistema de coordenadas `WGS84`.   
 
@@ -95,7 +95,7 @@ sólo deberemos aplicar una escala de color a nuestros datos.
 11. **Escalas de color**. A continuación vamos aplicar una escala de color para poder apreciar la densidad de población de cada municipio. En **propiedades** de la capa → pestaña **estilo**  y en el desplegable seleccionamos → _graduado_. En el apartado columna seleccionamos nuestra variable `densidad`, elegimos la rampa o escala de color que queramos y en `Clasificar`. Si elegimos un buen número `Clases` podremos apreciar una mayor precisión en la aplicación del color.  
 La opción **Modo** nos permite utilizar diferentes tipos de escalas. En nuestro contexto la opción `Quantil (cuenta igual)` nos permite apreciar mayor la distribución de los valores. El modo `Rupturas naturales (Jenks)` nos permite apreciar otra distribución.
 
-	![quantil-vs-jenks](img/quatil-vs-jenks.png)
+	![quantil-vs-jenks](img/quantil-vs-jenks.png)
 
 	Podéis ampliar información en [este post](http://roadtolarissa.com/coloring-maps/) de [Adam Pearce](https://twitter.com/adamrpearce) sobre las principales escalas.   
 11. **Print Composer** Una vez tenemos nuestro mapa queremos crear una imagen a buena resolución de nuestro mapa, listo para publicar. Pulsamos en el icono ![print_composer_icon](img/print_composer_icon.png).
@@ -117,11 +117,11 @@ En la pesataña 	`Propiedades del elemento` deseleccionamos la pestaña `fondo`.
 
 	Podemos seguir trabajando sobre este mapa o podemos intentar hacer un mapa diferente, más enfocado a un trabajo de reportaje como comentábamos anteriormente.   
 	- En las siguientes páginas se pueden `descargar` shapefiles y archivos _raster_ de carácter político, natural, cultural: [Natura Earth Data](http://www.naturalearthdata.com/), [Magrama](http://www.mapama.gob.es/es/cartografia-y-sig/ide/descargas/default.aspx), [Diva-gis.org](http://www.diva-gis.org/gdata), etc.   
-	A excepción del Ministerio de Agricultura, no son archivos oficiales, y si queremos hacer mapas con mucho detalle deberemos irnos siempre a las fuentes oficiales. En este sentido, España tiene todavía que mejorar el acceso a este tipo de datos fundamentales para un buen análisis.
+	A excepción del Ministerio de Agricultura, no son archivos oficiales, y si queremos hacer mapas con mucho detalle deberemos utilizar fuentes oficiales. En este sentido, España tiene todavía que mejorar el acceso a este tipo de datos fundamentales para un buen análisis.
 
 	- `Instalar un plugin`. seleccionamos la pestaña `complementos` de la vista principal → `Administrar e instalar complementos`.
 
-	- `QGIS` tiene multitud de `plugins` que potencian las posibilidades de este software que, no olvidemos es libre. Entre ellos destaca `OpenLayers Plugin` que nos permite añadir a nuestra composición multitud de capas: `Google Satellite`, `Bing Aerial`, `Google Streets`, etc. Presenta el inconveniente de ser capas **no editables**. No podremos tocar los niveles de las fotos aéreas, filtrar resultados, etc. Accedemos desde la pestaña `web`.
+	- `QGIS` tiene multitud de `plugins` que potencian las posibilidades de este software que, no olvidemos, es libre. Entre ellos destaca `OpenLayers Plugin` que nos permite añadir a nuestra composición multitud de capas: `Google Satellite`, `Bing Aerial`, `Google Streets`, etc. Presenta el inconveniente de ser capas **no editables**. No podremos tocar los niveles de las fotos aéreas, filtrar resultados, etc. Accedemos desde la pestaña `web`.
 
 	- Dibujar una serie de puntos en el mapa leyéndo desde un `csv`. Deberemos tener una columna con las coordenadas `longitud` y `latitud`. Si no tenemos un dataset con éstas caracteristicas podemos buscar las principales ciudades de España en google maps y copiar las coordenadas de la `url`.
 	La estructura del archivo debería ser algo así:   
@@ -152,6 +152,7 @@ Lo siguiente será ir jugando con niveles de opacidad, filtros y estilos basados
 ![lanzarote](img/lanzarote.png)   
 
 El `print composer` nos permite añadir fácilmante texto sobre nuestra composición, una barra de escala, un indicador del norte, una leyenda, etc. Las posibilidades son múltiples. Debemos ir jugando con todos los niveles y opciones hasta encontrar un diseño con el que estemos conforme.   
+
 Este diseño está hecho utilizando exclusivamente QGIS. Este programa nos ofrece una serie de opciones limitadas. Si queremos desarrollar una composición más elaborada con anotaciones, varios mapas, diseños específicos para cada plataforma (escritorio/móvil/tableta) sin duda deberemos ayudarnos de algún otro tipo de programa como Illustrator/Gimp.  
 
 ![lanzarote_design](img/lanzarote_design.png)    
