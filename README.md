@@ -24,7 +24,7 @@ Si a vosotros os poner tan nerviosos como mi ver ese mapa mal proyectado, podemo
 
 4. Antes de hacer el `merge` con la península debemos asegurarnos de que los dos archivos se encuentran representados bajo el mismo sistema de coordenadas. Como observamos en el nombre de la carpeta y del archivo, el `shapefile` de las Islas Canarias está utilizando el sistema de coordenadas `WGS84`.   
 
- Para ello debemos convertir este shapefile generando una copia bajo el sistema `ETRS89`. Pulsamos el botón derecho sobre la capa de Canarias y seleccionamos `guardar como`. En la pestaña de `SRC` ![src_icon](img/src_icon.png). Seleccionamos `ETRS89`.    
+ Para ello debemos convertir este shapefile generando una copia bajo el sistema `ETRS89`. Pulsamos el botón derecho sobre la capa de Canarias y seleccionamos `guardar como`. En la pestaña de `SRC` ![src_icon](img/push_src_icon.png). Seleccionamos `ETRS89`.    
 
 	![set_src_save](img/set_src_save.png)   
 
@@ -72,7 +72,7 @@ Podéis procesar los datos y guardarlos como csv o bien utilizar el csv de la ca
 
  (Saltar hasta el siguiente punto: **Uniones**).   
 
-  Para añadir un `csv` seleccionamos `Capa` o el icono de acceso directo ![add_delimited_text_layer_icon](img/add_delimited_text_layer_icon.png). Seleccionamos el archivo desde el explorador, codificación correcta, el delimitador correcto (`;`, `,`, `tabulador`...).    
+  Para añadir un `csv` seleccionamos `Capa` o el icono de acceso directo ![add_delimited_text_layer_icon](img/delimited_text_layer_icon.png). Seleccionamos el archivo desde el explorador, codificación correcta, el delimitador correcto (`;`, `,`, `tabulador`...).    
 
 	![add_delimited_text_layer](img/add_delimited_text_layer.png)   
 
