@@ -71,6 +71,20 @@ Para ello debemos convertir este shapefile generando una copia bajo el sistema `
 ![add_join](img/add_join.png)
 
 10. **Cálculo de densidad**. Volvemos a abrir la calculadora de campos. Y seguimos los pasos aprendidos para generar un nuevo campo. Esta vez la densidad de población.
-Importante seleccionar
+Importante seleccionar como tipo de salida de campo `Número decimal (real)`, `longitud de campo de salida`: `20` y una precision mínimo de `10`. E introducimos la siguiente expresión:
 
-`to_real( "data_POB00"  /  $area  ) `
+		`to_real( "data_POB00"  /  $area  ) `   
+Esta opeación nos generará un nuevo campo con la densidad de población por municipio. A continuación
+sólo deberemos aplicar una escala de color a nuestros datos.   
+
+11. **Print Composer** Una vez tenemos nuestro mapa queremos crear una imagen a buena resolución de nuestro mapa, listo para publicar. Pulsamos en el icono ![print_composer](img/print_composer_icon.png).
+Podemos rellenar el campo nombre. A continuación en añadir mapa ![new_map](img/new_map_icon.png).    
+Con el ratón pulsado arrastramos desde una esquina hacia la contraria dibujando la extensión del `canvas`. Apareceá exactamente lo mismo que estabamos viendo en la ventana principal de `QGIS`. Existe la posibilidad de eliminar el fondo y exportar la imagen con transparencia (muy útil si luego vamos a trabajar con ella en algún otro programa). En la pestaña `Diseño`del menú derecho	y en el apartado `Configuración de página` seleccionamos `Cambiar`: **borde** y **relleno** transparente.   
+En la pesataña 	`Propiedades del elemento` deseleccionamos la pestaña `fondo`.   
+
+	Si queremos crear una composición que incluya las Islas Canarias cerca de la península tendríamos que crear dos mapas en nuestro `print composer`:
+	- Sin cerrar esta ventana volvemos a la vista principal de QGIS. Hacemos zoom sobre la península.
+	- Volvemos al diseño de impresión y añadimos un nuevo mapa. En esta ocasión debería aparecer sólo la península.
+	- De nuevo en la ventana principal hacemos zoom sobre las Canarias. En el diseño de impresión añadimos un nuevo mapa. Aparecerán las Islas Canarias. Podemos ayudarnos de la herrmienta `Mover contenido del elemento` ![move_content_icon](img/move_content_icon.png) para manejar mejor las dos capas y de las opciones bloquear del menú superior derecho `Elementos`.   
+	- En el apartado `Propiedades principales` podemos servirnos del apartado `Escala` para asegurarnos de que los dos mapas conservan la misma proporción.
+	- Si queremos podemos añadir un rectángulo alrededor del archipiélago para remarcar la composición en `Añadir figura geométrica`.
