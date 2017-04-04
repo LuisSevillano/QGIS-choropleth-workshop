@@ -50,7 +50,9 @@ Si a vosotros os pone tan nerviosos como a mi ver ese mapa mal proyectado, podem
  En este caso nos interesa el campo `NATCODE`: un código único que identifica de manera inequívova a cualquier polígono (en este caso municipio).   
 
  Podemos extraer el código del **INE** de este campo para poder cruzarlo con el `CSV`. Nuestro objetivo es poder asociar unos valores específicos a cada municipio y para ello necesitamos un `id`.   
-Para éste propósito contamos con la `calculadora de campos` ![field_calculator_icon](img/field_calculator_icon.png). Hacemos click sobre el icono.   
+
+ Para éste propósito contamos con la `calculadora de campos` ![field_calculator_icon](img/field_calculator_icon.png). Hacemos click sobre el icono.
+
 8. **Calculadora de campos**. En primer lugar introducimos el nombre del campo de salida (será la cabecera de la nueva columna), por ejemplo `cod_ine`. En segundo lugar y **MUY IMPORTANTE** seleccionar el tipo de campo de salida como `Texto` (cadena) ya que queremos preservar los ceros al comienzo de nuestro código cuando éste sea inferior a 5, por ejemplo `04004` y no ~~`4004`~~.  
 
  Todos los desplegables de la derecha nos permiten ir construyendo una _query_ con la que crearemos el campo además de consultar la documentación asociada a cada método.   
