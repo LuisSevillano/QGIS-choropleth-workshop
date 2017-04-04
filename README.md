@@ -1,4 +1,4 @@
-Mapas de carácter informativo en QGIS
+Mapas con QGIS
 =============
 
 En este taller aprenderemos a realizar dos tipos de mapas, un _coropleta_ mostrando la densidad de población y un mapa de la isla de Lanzarote mostrando los principales municipios y el Parque Natural de Timanfaya. Todos los pasos necesarios están descritos aquí abajo.   
@@ -45,12 +45,12 @@ Si a vosotros os pone tan nerviosos como a mi ver ese mapa mal proyectado, podem
 
  ![attribute_table_full](img/attribute_table_full_d.png)      
 
-	Gracias a haber seleccionado la codificación `UTF-8` vemos como los nombres de los municipios presentan todos sus caracteres correctamente. Una tabla completa de atributos sobre la que podremos realizar multitud de cálculos para filtrar en base a unas reglas, modificar o incluso crear nuevos campos.  
+ Gracias a haber seleccionado la codificación `UTF-8` vemos como los nombres de los municipios presentan todos sus caracteres correctamente. Una tabla completa de atributos sobre la que podremos realizar multitud de cálculos para filtrar en base a unas reglas, modificar o incluso crear nuevos campos.  
 
-	En este caso nos interesa el campo `NATCODE`: un código único que identifica de manera inequívova a cualquier polígono (en este caso municipio).   
+ En este caso nos interesa el campo `NATCODE`: un código único que identifica de manera inequívova a cualquier polígono (en este caso municipio).   
 
-	Podemos extraer el código del **INE** de este campo para poder cruzarlo con el `CSV`. Nuestro objetivo es poder asociar unos valores específicos a cada municipio y para ello necesitamos un `id`.   
-	Para éste propósito contamos con la `calculadora de campos` ![field_calculator_icon](img/field_calculator_icon.png). Hacemos click sobre el icono.   
+ Podemos extraer el código del **INE** de este campo para poder cruzarlo con el `CSV`. Nuestro objetivo es poder asociar unos valores específicos a cada municipio y para ello necesitamos un `id`.   
+Para éste propósito contamos con la `calculadora de campos` ![field_calculator_icon](img/field_calculator_icon.png). Hacemos click sobre el icono.   
 8. **Calculadora de campos**. En primer lugar introducimos el nombre del campo de salida (será la cabecera de la nueva columna), por ejemplo `cod_ine`. En segundo lugar y **MUY IMPORTANTE** seleccionar el tipo de campo de salida como `Texto` (cadena) ya que queremos preservar los ceros al comienzo de nuestro código cuando éste sea inferior a 5, por ejemplo `04004` y no ~~`4004`~~.  
 
  Todos los desplegables de la derecha nos permiten ir construyendo una _query_ con la que crearemos el campo además de consultar la documentación asociada a cada método.   
