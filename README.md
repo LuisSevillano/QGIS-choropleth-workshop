@@ -92,9 +92,9 @@ Necesitaremos descargar dos conjuntos de datos, los `shapefiles` y el `csv`. Des
 
     Introducimos la siguiente expresión:
 
-        to_real( "POB00" / $area ) \* 10000
+        to_real( "POB00" / $area ) * 10000
 
-    Dividimos la población entre el área del polígono. Lo multiplicamos por 10.000 para obtener habitantes por hectarea y _parseamos_ el dato a número real (decimal) para conservar los decimales con `to_real(...)`. Esta operación generará un nuevo campo con la densidad de población por municipio. A continuación sólo deberemos aplicar una escala de color a nuestros datos.
+    Dividimos la población entre el área del polígono. Lo multiplicamos por 10.000 para obtener el número de habitantes por hectarea y _parseamos_ el dato a número real (decimal) para conservar los decimales con `to_real(...)`. Esta operación generará un nuevo campo con la densidad de población por municipio. A continuación sólo deberemos aplicar una escala de color a nuestros datos. En este ejemplo, `POB00` es el nombre del campo que contiene la población total por municipio.
 
     **NUNCA** debemos representar datos absolutos en un mapa. Siempre hemos de ponerlos en contexto con alguna otra variable relativa.
 
